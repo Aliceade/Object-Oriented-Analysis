@@ -14,27 +14,25 @@ The purpose of this document is system analysis and design, not full implementat
 ## 2. Requirement Analysis
 
 ### 2.1 Actors
-- **Librarian**: Manages books, members, and transactions
-- **Member**: Searches, borrows, and returns books
+- **Librarian**: Manages books, members, and transactions.
+- **Member**: Searches, borrows, and returns books.
 
 ### 2.2 Use Cases
-- Search Book  
-- Issue Book  
-- Return Book  
-- Add Book  
-- Remove Book  
-- Register Member  
+- Search Book
+- Issue Book
+- Return Book
+- Add Book
+- Remove Book
+- Register Member
 
 ---
 
 ## 3. System Architecture Design
 
 ### 3.1 Major Components
-- **Presentation Layer (UI)** – Handles user interaction  
-- **Business Logic Layer** – Applies system rules  
-- **Data Access Layer** – Manages data storage  
-
----
+- **Presentation Layer (UI)** – Handles user interaction.
+- **Business Logic Layer** – Applies system rules.
+- **Data Access Layer** – Manages data storage.
 
 ### 3.2 High-Level Architecture Diagram
 ```mermaid
@@ -47,78 +45,14 @@ graph TD
     UI --> BL
     BL --> DA
     DA --> DB
-4. Class Diagram
-mermaid
 
-classDiagram
-    class Book {
-        bookId
-        title
-        author
-        status
-        issueBook()
-        returnBook()
-    }
+```mermaid
+graph TD
+    UI[User Interface]
+    BL[Business Logic Layer]
+    DA[Data Access Layer]
+    DB[(Database)]
 
-    class Member {
-        memberId
-        name
-        borrowBook()
-        returnBook()
-    }
-
-    class Librarian {
-        librarianId
-        name
-        addBook()
-        removeBook()
-        registerMember()
-    }
-
-    class Loan {
-        loanId
-        issueDate
-        returnDate
-        createLoan()
-        closeLoan()
-    }
-
-    Member --> Loan
-    Book --> Loan
-    Librarian --> Book
-5. Use Case Diagram
-mermaid
-
-graph LR
-    Member -->|Search Book| LMS
-    Member -->|Borrow Book| LMS
-    Member -->|Return Book| LMS
-    Librarian -->|Add Book| LMS
-    Librarian -->|Remove Book| LMS
-    Librarian -->|Register Member| LMS
-6. Sequence Diagram – Issue Book
-mermaid
-
-sequenceDiagram
-    Member->>Librarian: Request book
-    Librarian->>System: Check availability
-    System->>Book: Update status to Issued
-    System->>Loan: Create loan record
-    System-->>Member: Book issued
-7. Sequence Diagram – Return Book
-mermaid
-
-sequenceDiagram
-    Member->>Librarian: Return book
-    Librarian->>System: Process return
-    System->>Book: Update status to Available
-    System->>Loan: Close loan
-    System-->>Member: Return confirmed
-8. State Diagram – Book
-mermaid
-
-stateDiagram-v2
-    [*] --> Available
-    Available --> Issued
-    Issued --> Returned
-    Returned --> Available
+    UI --> BL
+    BL --> DA
+    DA --> DB
