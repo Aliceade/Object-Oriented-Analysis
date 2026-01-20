@@ -30,9 +30,11 @@ The purpose of this document is system analysis and design, not full implementat
 ## 3. System Architecture Design
 
 ### 3.1 Major Components
-- **Presentation Layer (UI)** – Handles user interaction
-- **Business Logic Layer** – Applies system rules
-- **Data Access Layer** – Manages data storage
+- **Presentation Layer (UI)** – Handles user interaction  
+- **Business Logic Layer** – Applies system rules  
+- **Data Access Layer** – Manages data storage  
+
+---
 
 ### 3.2 High-Level Architecture Diagram
 ```mermaid
@@ -45,6 +47,8 @@ graph TD
     UI --> BL
     BL --> DA
     DA --> DB
+4. Class Diagram
+mermaid
 
 classDiagram
     class Book {
@@ -82,6 +86,9 @@ classDiagram
     Member --> Loan
     Book --> Loan
     Librarian --> Book
+5. Use Case Diagram
+mermaid
+
 graph LR
     Member -->|Search Book| LMS
     Member -->|Borrow Book| LMS
@@ -89,6 +96,8 @@ graph LR
     Librarian -->|Add Book| LMS
     Librarian -->|Remove Book| LMS
     Librarian -->|Register Member| LMS
+6. Sequence Diagram – Issue Book
+mermaid
 
 sequenceDiagram
     Member->>Librarian: Request book
@@ -96,6 +105,8 @@ sequenceDiagram
     System->>Book: Update status to Issued
     System->>Loan: Create loan record
     System-->>Member: Book issued
+7. Sequence Diagram – Return Book
+mermaid
 
 sequenceDiagram
     Member->>Librarian: Return book
@@ -103,10 +114,11 @@ sequenceDiagram
     System->>Book: Update status to Available
     System->>Loan: Close loan
     System-->>Member: Return confirmed
+8. State Diagram – Book
+mermaid
 
 stateDiagram-v2
     [*] --> Available
     Available --> Issued
     Issued --> Returned
     Returned --> Available
-
