@@ -45,7 +45,7 @@ graph TD
     UI --> BL
     BL --> DA
     DA --> DB
-
+```
 ```mermaid
 graph TD
     UI[User Interface]
@@ -56,3 +56,4 @@ graph TD
     UI --> BL
     BL --> DA
     DA --> DB
+```
