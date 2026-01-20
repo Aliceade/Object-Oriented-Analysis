@@ -46,14 +46,90 @@ graph TD
     BL --> DA
     DA --> DB
 ```
+###Class Diagram
 ```mermaid
-graph TD
-    UI[User Interface]
-    BL[Business Logic Layer]
-    DA[Data Access Layer]
-    DB[(Database)]
+classDiagram
+    class Book {
+        +bookId
+        +title
+        +author
+        +status
+        +issueBook()
+        +returnBook()
+    }
 
-    UI --> BL
-    BL --> DA
-    DA --> DB
+    class Member {
+        +memberId
+        +name
+        +borrowBook()
+        +returnBook()
+    }
+
+    class Librarian {
+        +librarianId
+        +name
+        +addBook()
+        +removeBook()
+        +registerMember()
+    }
+
+    class Loan {
+        +loanId
+        +issueDate
+        +returnDate
+        +createLoan()
+        +closeLoan()
+    }
+
+    Member --> Loan
+    Book --> Loan
+    Librarian --> Book
+```
+###Use Case Diagram
+```mermaid
+graph LR
+    Member -->|Search Book| LMS
+    Member -->|Borrow Book| LMS
+    Member -->|Return Book| LMS
+    Librarian -->|Add Book| LMS
+    Librarian -->|Remove Book| LMS
+    Librarian -->|Register Member| LMS
+```
+###SequenceDiagram
+```mermaid
+sequenceDiagram
+    participant Member
+    participant Librarian
+    participant System
+    participant Book
+    participant Loan
+    
+    Member->>Librarian: Request book
+    Librarian->>System: Check availability
+    System->>Book: Update status to Issued
+    System->>Loan: Create loan record
+    System-->>Member: Book issued
+```
+###Return book
+```mermaid
+sequenceDiagram
+    participant Member
+    participant Librarian
+    participant System
+    participant Book
+    participant Loan
+
+    Member->>Librarian: Return book
+    Librarian->>System: Process return
+    System->>Book: Update status to Available
+    System->>Loan: Close loan
+    System-->>Member: Return confirmed
+```
+###State
+```mermaid
+stateDiagram-v2
+    [*] --> Available
+    Available --> Issued
+    Issued --> Returned
+    Returned --> Available
 ```
